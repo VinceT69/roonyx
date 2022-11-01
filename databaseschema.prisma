@@ -1,0 +1,57 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Vehicle {
+    id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    model       String  @db.VarChar(10)
+    drive       Drive[]
+    plateNumber String  @db.VarChar(10)
+    Person      Person? @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    personId    String? @db.Uuid
+}
+
+model Drive {
+    id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    date      DateTime @db.Date
+    distance  Int
+    Vehicle   Vehicle? @relation(fields: [vehicleId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    vehicleId String?  @db.Uuid
+}
+
+model Student {
+    id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    studentNumber Int
+    Person        Person[]
+}
+
+model Address {
+    id      String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    street  String   @db.VarChar(10)
+    city    String   @db.VarChar(10)
+    country String   @db.VarChar(10)
+    Person  Person[]
+}
+
+model Professor {
+    id     String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    salary Int
+    Person Person[]
+}
+
+model Person {
+    id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    name        String     @db.VarChar(10)
+    vehicle     Vehicle[]
+    address     Address?   @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    addressId   String     @db.Uuid
+    student     Student?   @relation(fields: [studentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    studentId   String?    @db.Uuid
+    professor   Professor? @relation(fields: [professorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    professorId String?    @db.Uuid
+}

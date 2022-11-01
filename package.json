@@ -1,0 +1,24 @@
+{
+  "name": "roonyx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "startRnM": "tsc && node rickandmorty.js",
+    "startCounter": "tsc && node counter.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VinceT69/roonyx.git"
+  },
+  "author": "vicent tugume",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VinceT69/roonyx/issues"
+  },
+  "homepage": "https://github.com/VinceT69/roonyx#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.8",
+    "typescript": "^4.8.4"
+  }
+}
